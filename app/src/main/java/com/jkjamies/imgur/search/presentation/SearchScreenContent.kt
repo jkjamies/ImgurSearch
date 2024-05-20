@@ -1,5 +1,7 @@
 package com.jkjamies.imgur.search.presentation
 
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.content.res.Configuration.UI_MODE_TYPE_NORMAL
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,15 +16,24 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.jkjamies.imgur.search.AppModule
 import com.jkjamies.imgur.search.FilterOptions
+import com.jkjamies.imgur.search.contextModule
 import com.jkjamies.imgur.search.presentation.components.SearchAppBar
 import com.jkjamies.imgur.search.presentation.components.SearchResultsGrid
 import com.jkjamies.imgur.search.presentation.components.SearchScreenError
 import com.jkjamies.imgur.search.presentation.components.SearchScreenIdle
 import com.jkjamies.imgur.search.presentation.components.SearchScreenLoading
+import com.jkjamies.imgur.search.ui.theme.ImgurSearchTheme
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.compose.koinViewModel
+import org.koin.compose.KoinApplication
+import org.koin.core.KoinApplication
+import org.koin.ksp.generated.module
 
 @Composable
 internal fun SearchScreenContent(
@@ -87,4 +98,40 @@ internal fun SearchScreenContent(
             }
         },
     )
+}
+
+/**
+ * Dark Preview - starts koin, light theme below uses it (already started error
+ * if you use more than one preview here or start koin application for second preview).
+ * @Preview multiple definitions don't work, @PreviewLightDark, same issue.
+ */
+@Composable
+@Preview(
+    name = "Dark",
+    backgroundColor = 0xFF000000,
+    showBackground = true,
+    uiMode = UI_MODE_NIGHT_YES or UI_MODE_TYPE_NORMAL,
+)
+private fun SearchScreenContentDarkPreview() {
+    val context = LocalContext.current
+
+    KoinApplication(application = {
+        androidContext(context)
+        modules(AppModule().module, contextModule)
+    }) {
+        ImgurSearchTheme {
+            SearchScreenContent(onNavigateToDetails = { })
+        }
+    }
+}
+
+/**
+ * Not starting koin application because preview above already does, use it again here.
+ */
+@Composable
+@Preview(name = "Light", backgroundColor = 0xFFFFFFFF, showBackground = true)
+private fun SearchScreenContentLightPreview() {
+    ImgurSearchTheme {
+        SearchScreenContent(onNavigateToDetails = { })
+    }
 }

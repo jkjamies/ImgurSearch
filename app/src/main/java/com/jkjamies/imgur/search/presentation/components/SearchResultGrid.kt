@@ -7,9 +7,11 @@ import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.jkjamies.imgur.api.domain.models.ImgurSearchResult
 import com.jkjamies.imgur.search.FilterOptions
+import com.jkjamies.imgur.search.ui.theme.ImgurSearchTheme
 
 @Composable
 fun SearchResultsGrid(
@@ -35,4 +37,42 @@ fun SearchResultsGrid(
             }
         },
     )
+}
+
+@Composable
+@PreviewLightDark
+private fun SearchResultsGridPreview() {
+    ImgurSearchTheme {
+        SearchResultsGrid(
+            results =
+                listOf(
+                    ImgurSearchResult(
+                        id = "1",
+                        title = "Title",
+                        link = "https://i.imgur.com/abc123.jpg",
+                        imageType = "image/jpeg",
+                    ),
+                    ImgurSearchResult(
+                        id = "2",
+                        title = "Title",
+                        link = "https://i.imgur.com/abc123.jpg",
+                        imageType = "image/jpeg",
+                    ),
+                    ImgurSearchResult(
+                        id = "3",
+                        title = "Title",
+                        link = "https://i.imgur.com/abc123.jpg",
+                        imageType = "image/jpeg",
+                    ),
+                    ImgurSearchResult(
+                        id = "4",
+                        title = "Title",
+                        link = "https://i.imgur.com/abc123.jpg",
+                        imageType = "image/jpeg",
+                    ),
+                ),
+            filterOptions = FilterOptions(),
+            onNavigateToDetails = { },
+        )
+    }
 }

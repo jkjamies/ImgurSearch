@@ -24,7 +24,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import com.jkjamies.imgur.search.ui.theme.ImgurSearchTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -93,4 +95,12 @@ internal fun SearchAppBar(
             }
         },
     )
+}
+
+@Composable
+@PreviewLightDark
+private fun SearchAppBarPreview() {
+    ImgurSearchTheme {
+        SearchAppBar(onExecuteSearch = { }, onFilterOptionsClicked = { })
+    }
 }

@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import coil.ImageLoader
 import coil.compose.AsyncImage
@@ -21,6 +22,7 @@ import coil.decode.ImageDecoderDecoder
 import coil.decode.VideoFrameDecoder
 import com.jkjamies.imgur.api.domain.models.ImgurSearchResult
 import com.jkjamies.imgur.search.R
+import com.jkjamies.imgur.search.ui.theme.ImgurSearchTheme
 
 @Composable
 fun SearchResultCard(
@@ -78,5 +80,22 @@ private fun getImageLoader(
         ImageLoader.Builder(context = LocalContext.current)
             .crossfade(true)
             .build()
+    }
+}
+
+@Composable
+@PreviewLightDark
+private fun SearchResultCardPreview() {
+    ImgurSearchTheme {
+        SearchResultCard(
+            result =
+                ImgurSearchResult(
+                    id = "1",
+                    title = "Title",
+                    link = "https://i.imgur.com/1.jpg",
+                    imageType = "image/jpeg",
+                ),
+            onClick = { },
+        )
     }
 }
