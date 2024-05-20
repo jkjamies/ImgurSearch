@@ -18,24 +18,32 @@ internal class ImgurRepositoryImpl(
         flow {
             // emit retained information immediately
             val local = localDataSource.getSearchResults(searchQuery)
-            emit(local)
+            if (local != null && local.searchQuery == searchQuery) emit(local)
 
-            // if missing or different search query, fetch from remote and save to local, emit remote data
-            if (local == null || local.searchQuery != searchQuery) {
-                remoteDataSource.getSearchQueryResults(searchQuery)
-                    .onSuccess { searchResults ->
-                        Logger.d("ApodRemoteDataSourceImpl") {
+            // always fetch a new set of images to stay updated, even if local data is available
+            remoteDataSource.getSearchQueryResults(searchQuery)
+                .onSuccess { searchResults ->
+                    Logger.d("ImgurRepositoryImpl") {
+                        """
+                        Requested Imgur Search:
+                        $searchResults
+                        """.trimIndent()
+                    }
+                    emit(searchResults)
+                    searchResults?.let { localDataSource.saveSearchResults(searchQuery, it) }
+                }
+                .onFailure {
+                    if (local == null) { // if we have no local data, emit null
+                        emit(null)
+                    } else { // otherwise use the local data we have instead
+                        Logger.e("ImgurRepositoryImpl") {
                             """
-                            Requested Astronomy Picture of the Day:
-                            $searchResults
+                            Keeping local cached data:
+                            Failed to fetch Imgur Search:
+                            $it
                             """.trimIndent()
                         }
-                        emit(searchResults)
-                        searchResults?.let { localDataSource.saveSearchResults(searchQuery, it) }
                     }
-                    .onFailure {
-                        emit(null)
-                    }
-            }
+                }
         }
 }

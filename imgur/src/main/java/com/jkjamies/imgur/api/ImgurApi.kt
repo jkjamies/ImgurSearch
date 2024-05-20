@@ -21,7 +21,7 @@ class ImgurApi(context: Context) {
     /** Koin application for the Imgur search query results */
     private val koinApp =
         koinApplication {
-            logger(KermitKoinLogger(Logger.withTag("Koin APoD")))
+            logger(KermitKoinLogger(Logger.withTag("Koin Imgur")))
             androidContext(context)
             modules(ImgurModule().module)
         }
