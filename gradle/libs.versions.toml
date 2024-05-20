@@ -1,0 +1,87 @@
+[versions]
+agp = "8.6.0-alpha02"
+kotlin = "1.9.23"
+coreKtx = "1.13.1"
+junit = "4.13.2"
+junitVersion = "1.1.5"
+espressoCore = "3.5.1"
+lifecycleRuntimeKtx = "2.8.0"
+activityCompose = "1.9.0"
+composeBom = "2024.05.00"
+composeNavigation = "2.7.7"
+composeCompiler = "1.5.12"
+coil-bom = "2.6.0"
+kotest = "5.8.1"
+appcompat = "1.6.1"
+material = "1.12.0"
+lottie = "6.4.0"
+# KMP-Friendly
+koin = "3.5.6"
+koinAnnotations = "1.3.1"
+dokka = "1.9.20"
+ktor = "2.3.10"
+kotlinxSerialization = "1.6.3"
+sqldelight = "2.0.2"
+kermit = "2.0.3"
+mockk = "1.13.10"
+jetbrainsKotlinJvm = "1.9.0"
+ksp_version = "1.9.23-1.0.20"
+
+[libraries]
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycleRuntimeKtx" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-ui = { group = "androidx.compose.ui", name = "ui", version = "1.7.0-beta01" } # overriding for collectAsStateWithLifecycle TODO: remove override
+androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-material-icons = { group = "androidx.compose.material", name = "material-icons-extended" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-compose-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "composeNavigation" }
+android-coil-bom = { group = "io.coil-kt", name = "coil-bom", version.ref = "coil-bom" }
+android-coil-base = { group = "io.coil-kt", name = "coil-base" }
+android-coil-compose = { group = "io.coil-kt", name = "coil-compose" }
+android-coil-gif = { group = "io.coil-kt", name = "coil-gif" }
+android-coil-video = { group = "io.coil-kt", name = "coil-video" }
+android-sqldelight-driver = { group = "app.cash.sqldelight", name = "android-driver", version.ref = "sqldelight" }
+junit-kotest = { group = "io.kotest", name = "kotest-runner-junit5", version.ref = "kotest" }
+android-lottie = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "lottie" }
+koin-android = { group = "io.insert-koin", name = "koin-android" }
+koin-android-compose = { group = "io.insert-koin", name = "koin-androidx-compose" }
+
+# KMP-Friendly
+koin-bom = { group = "io.insert-koin", name = "koin-bom", version.ref = "koin" }
+koin-core = { group = "io.insert-koin", name = "koin-core" }
+koin-annotations-bom = { group = "io.insert-koin", name = "koin-annotations-bom", version.ref = "koinAnnotations" }
+koin-annotations = { group = "io.insert-koin", name = "koin-annotations" }
+koin-ksp-compiler = { group = "io.insert-koin", name = "koin-ksp-compiler" }
+koin-test = { group = "io.insert-koin", name = "koin-test" }
+ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
+ktor-client-mock = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor" }
+ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "ktor" }
+ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-serialization-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
+kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+kermit = { group = "co.touchlab", name = "kermit", version.ref = "kermit" }
+kermit-koin = { group = "co.touchlab", name = "kermit-koin", version.ref = "kermit" }
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+sqldelight-adapters = { group = "app.cash.sqldelight", name = "primitive-adapters", version.ref = "sqldelight" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+serialization = { id = "plugin.serialization", version.ref = "kotlin" }
+jetbrains-dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
+jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
+google-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp_version" }
