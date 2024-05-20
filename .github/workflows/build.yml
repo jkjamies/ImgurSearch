@@ -1,6 +1,7 @@
 name: Assemble Debug
 
 on:
+  pull_request:
   push:
     branches:
       - main
