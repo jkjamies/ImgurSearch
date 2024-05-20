@@ -36,12 +36,4 @@ class SearchScreenViewModel(
             }
         }
     }
-
-    fun getPage() {
-        // Make API call to get the next page of results
-        // ...
-
-        // Update the search results list
-        uiState.updateAndGet { SearchScreenUiState.Loading }
-    }
 }
