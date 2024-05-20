@@ -1,0 +1,33 @@
+import kotlin.collections.List;
+import com.jkjamies.imgur.api.domain.models.ImgurSearchResult;
+
+-- Database schema for ImgurData
+CREATE TABLE IF NOT EXISTS ImgurDataList (
+    searchQuery TEXT PRIMARY KEY,
+    imgurSearchResults TEXT AS List<ImgurSearchResult> NOT NULL
+);
+
+-- Delete all data from the table
+deleteAllData:
+DELETE FROM ImgurDataList;
+
+-- Insert statement
+insertOrReplaceImgurData:
+INSERT OR REPLACE INTO ImgurDataList (
+    searchQuery,
+    imgurSearchResults
+) VALUES (
+    ?1,
+    ?2
+);
+
+-- Select statement
+getImgurResultsByQuery:
+SELECT *
+FROM ImgurDataList
+WHERE searchQuery = ?1;
+
+-- Select statement
+getAllImgurData:
+SELECT *
+FROM ImgurDataList;
