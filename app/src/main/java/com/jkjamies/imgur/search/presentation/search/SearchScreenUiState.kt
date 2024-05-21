@@ -1,8 +1,8 @@
-package com.jkjamies.imgur.search.presentation
+package com.jkjamies.imgur.search.presentation.search
 
 import com.jkjamies.imgur.api.domain.models.ImgurSearchResult
 
-sealed class SearchScreenUiState {
+internal sealed class SearchScreenUiState {
     data object Idle : SearchScreenUiState()
 
     data object Loading : SearchScreenUiState()

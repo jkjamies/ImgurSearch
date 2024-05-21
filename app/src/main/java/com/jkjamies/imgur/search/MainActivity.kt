@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.jkjamies.imgur.search.presentation.SearchScreenContent
+import com.jkjamies.imgur.search.presentation.ImgurSearchNavHost
 import com.jkjamies.imgur.search.ui.theme.ImgurSearchTheme
 
 class MainActivity : ComponentActivity() {
@@ -13,12 +13,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ImgurSearchTheme {
-                SearchScreenContent(
-                    onNavigateToDetails = { /* Navigate to details screen */ },
-                )
+                ImgurSearchNavHost()
             }
         }
     }
 }
-
-data class FilterOptions(val categories: List<String> = emptyList())

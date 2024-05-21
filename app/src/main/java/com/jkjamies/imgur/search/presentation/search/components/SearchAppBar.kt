@@ -86,7 +86,7 @@ internal fun SearchAppBar(
         actions = {
             IconButton(
                 modifier = Modifier.padding(horizontal = 16.dp),
-                onClick = { /* Search */ },
+                onClick = onFilterOptionsClicked,
             ) {
                 Icon(
                     imageVector = Icons.Filled.FilterList,

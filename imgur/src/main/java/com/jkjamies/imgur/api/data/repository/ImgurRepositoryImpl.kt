@@ -3,6 +3,7 @@ package com.jkjamies.imgur.api.data.repository
 import co.touchlab.kermit.Logger
 import com.jkjamies.imgur.api.data.localDataSource.ImgurLocalDataSource
 import com.jkjamies.imgur.api.data.remoteDataSource.ImgurRemoteDataSource
+import com.jkjamies.imgur.api.domain.models.ImgurSearchResult
 import com.jkjamies.imgur.api.domain.models.ImgurSearchResults
 import com.jkjamies.imgur.api.domain.repository.ImgurRepository
 import kotlinx.coroutines.flow.Flow
@@ -46,4 +47,7 @@ internal class ImgurRepositoryImpl(
                     }
                 }
         }
+
+    override suspend fun getImgurImageById(imageId: String): Flow<ImgurSearchResult?> =
+        flow { emit(localDataSource.getSearchResult(imageId)) }
 }

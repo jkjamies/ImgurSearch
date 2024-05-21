@@ -10,11 +10,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.jkjamies.imgur.api.domain.models.ImgurSearchResult
-import com.jkjamies.imgur.search.FilterOptions
+import com.jkjamies.imgur.search.presentation.search.components.FilterOptions
 import com.jkjamies.imgur.search.ui.theme.ImgurSearchTheme
 
 @Composable
-fun SearchResultsGrid(
+internal fun SearchResultsGrid(
     results: List<ImgurSearchResult>,
     filterOptions: FilterOptions,
     onNavigateToDetails: (String) -> Unit,

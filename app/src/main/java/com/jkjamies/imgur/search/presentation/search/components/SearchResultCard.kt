@@ -22,10 +22,11 @@ import coil.decode.ImageDecoderDecoder
 import coil.decode.VideoFrameDecoder
 import com.jkjamies.imgur.api.domain.models.ImgurSearchResult
 import com.jkjamies.imgur.search.R
+import com.jkjamies.imgur.search.presentation.shared.ImgurImage
 import com.jkjamies.imgur.search.ui.theme.ImgurSearchTheme
 
 @Composable
-fun SearchResultCard(
+internal fun SearchResultCard(
     result: ImgurSearchResult,
     onClick: () -> Unit,
 ) {
@@ -37,49 +38,7 @@ fun SearchResultCard(
                 .clickable(onClick = onClick),
         shape = RoundedCornerShape(8.dp),
     ) {
-        AsyncImage(
-            imageLoader = getImageLoader(result.imageType, LocalContext.current),
-            modifier = Modifier.fillMaxWidth(),
-            model = result.link,
-            placeholder = painterResource(R.drawable.ic_launcher_foreground), // TODO: could be better
-            contentDescription = result.title,
-            contentScale = ContentScale.FillWidth,
-        )
-    }
-}
-
-@Composable
-private fun getImageLoader(
-    imageType: String,
-    context: Context,
-) = when (imageType) {
-    "image/gif" -> {
-        ImageLoader.Builder(context)
-            .components {
-                // Android P added support for decoding GIFs natively.
-                if (SDK_INT >= 28) {
-                    add(ImageDecoderDecoder.Factory())
-                } else {
-                    add(GifDecoder.Factory())
-                }
-            }
-            .crossfade(true)
-            .build()
-    }
-
-    "video/mp4" -> {
-        ImageLoader.Builder(context = LocalContext.current)
-            .components {
-                add(VideoFrameDecoder.Factory())
-            }
-            .crossfade(true)
-            .build()
-    }
-
-    else -> { // covers image/jpeg and image/png
-        ImageLoader.Builder(context = LocalContext.current)
-            .crossfade(true)
-            .build()
+        ImgurImage(result = result)
     }
 }
 

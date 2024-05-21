@@ -1,6 +1,8 @@
 plugins {
+    val serialization = libs.plugins.serialization.get()
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    kotlin(serialization.pluginId) version serialization.version.requiredVersion
     alias(libs.plugins.google.ksp)
     alias(libs.plugins.jetbrains.dokka)
 }
@@ -78,6 +80,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.material.icons)
+    implementation(libs.androidx.compose.navigation)
     implementation(libs.android.lottie)
 
     // Coil
@@ -86,6 +89,9 @@ dependencies {
     implementation(libs.android.coil.compose)
     implementation(libs.android.coil.gif)
     implementation(libs.android.coil.video)
+
+    // Kotlin
+    implementation(libs.kotlinx.serialization)
 
     // Koin
     implementation(platform(libs.koin.bom))

@@ -1,5 +1,6 @@
 package com.jkjamies.imgur.api.domain.repository
 
+import com.jkjamies.imgur.api.domain.models.ImgurSearchResult
 import com.jkjamies.imgur.api.domain.models.ImgurSearchResults
 import kotlinx.coroutines.flow.Flow
 
@@ -14,4 +15,12 @@ internal interface ImgurRepository {
      * @return The search results for the given [searchQuery].
      */
     suspend fun getImgurSearchResults(searchQuery: String): Flow<ImgurSearchResults?>
+
+    /**
+     * Retrieve the image with the given [imageId].
+     *
+     * @param imageId The ID of the image to retrieve.
+     * @return The image with the given [imageId].
+     */
+    suspend fun getImgurImageById(imageId: String): Flow<ImgurSearchResult?>
 }

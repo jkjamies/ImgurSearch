@@ -51,7 +51,7 @@ class ImgurRemoteDataSourceImplTest : StringSpec({
                     listOf(
                         ImgurSearchResult(
                             id = "PUOfrQW",
-                            title = "cute cat",
+                            title = "Janky Vs The Guy She Told You Not to Worry About",
                             link = "https://i.imgur.com/PUOfrQW.jpg",
                             imageType = "image/jpeg",
                         ),
