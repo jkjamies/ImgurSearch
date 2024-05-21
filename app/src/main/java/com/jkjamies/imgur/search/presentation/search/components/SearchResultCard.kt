@@ -26,7 +26,7 @@ import com.jkjamies.imgur.search.presentation.shared.ImgurImage
 import com.jkjamies.imgur.search.ui.theme.ImgurSearchTheme
 
 @Composable
-fun SearchResultCard(
+internal fun SearchResultCard(
     result: ImgurSearchResult,
     onClick: () -> Unit,
 ) {

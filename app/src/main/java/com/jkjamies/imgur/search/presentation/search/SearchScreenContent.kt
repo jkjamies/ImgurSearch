@@ -2,6 +2,7 @@ package com.jkjamies.imgur.search.presentation.search
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.content.res.Configuration.UI_MODE_TYPE_NORMAL
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,13 +22,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.jkjamies.imgur.search.AppModule
-import com.jkjamies.imgur.search.FilterOptions
 import com.jkjamies.imgur.search.contextModule
 import com.jkjamies.imgur.search.presentation.components.SearchAppBar
 import com.jkjamies.imgur.search.presentation.components.SearchResultsGrid
 import com.jkjamies.imgur.search.presentation.components.SearchScreenError
 import com.jkjamies.imgur.search.presentation.components.SearchScreenIdle
 import com.jkjamies.imgur.search.presentation.components.SearchScreenLoading
+import com.jkjamies.imgur.search.presentation.search.components.FilterOptions
+import com.jkjamies.imgur.search.presentation.search.components.FilterOptionsView
 import com.jkjamies.imgur.search.ui.theme.ImgurSearchTheme
 import kotlinx.serialization.Serializable
 import org.koin.android.ext.koin.androidContext
@@ -50,15 +52,26 @@ internal fun SearchScreenContent(
     val lastKnownSearchExecuted = rememberSaveable { mutableStateOf("") }
     val filterOptions = remember { mutableStateOf(FilterOptions()) }
 
+    // In SearchScreenContent composable
+    val filterOptionsDialogVisible = remember { mutableStateOf(false) }
+
     Scaffold(
         topBar = {
-            SearchAppBar(
-                onExecuteSearch = {
-                    lastKnownSearchExecuted.value = it
-                    viewModel.search(lastKnownSearchExecuted.value)
-                },
-                onFilterOptionsClicked = { /* Show filter options dialog */ },
-            )
+            Column {
+                SearchAppBar(
+                    onExecuteSearch = {
+                        lastKnownSearchExecuted.value = it
+                        viewModel.search(lastKnownSearchExecuted.value)
+                    },
+                ) {
+                    filterOptionsDialogVisible.value = !filterOptionsDialogVisible.value
+                }
+                AnimatedVisibility(filterOptionsDialogVisible.value) {
+                    FilterOptionsView(filterOptions.value) {
+                        filterOptions.value = it
+                    }
+                }
+            }
         },
         content = { padding ->
             Column(

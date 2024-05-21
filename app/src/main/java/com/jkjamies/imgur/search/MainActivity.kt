@@ -18,5 +18,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-data class FilterOptions(val categories: List<String> = emptyList())

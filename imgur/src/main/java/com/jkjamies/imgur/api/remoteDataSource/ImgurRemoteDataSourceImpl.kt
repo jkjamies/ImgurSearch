@@ -23,7 +23,6 @@ internal class ImgurRemoteDataSourceImpl(
     override suspend fun getSearchQueryResults(searchQuery: String): Result<ImgurSearchResults?> {
         runCatching {
             // Fetch the Imgur Search Response from the Imgur API
-            // TODO: You should move this endpoint to build config
             val request =
                 httpClient.get(BuildConfig.imgurBaseUrl) {
                     url {
@@ -33,9 +32,6 @@ internal class ImgurRemoteDataSourceImpl(
                         }
                         if (true) { // if given a time filter
                             appendPathSegments("all") // day, week, month, year, all - defaults to all
-                        }
-                        if (true) { // if given a page filter
-                            appendPathSegments("1") // page number
                         }
                         parameters.append("q", searchQuery)
                     }
