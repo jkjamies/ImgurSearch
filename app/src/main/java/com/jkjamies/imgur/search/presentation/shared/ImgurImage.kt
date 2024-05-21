@@ -1,20 +1,16 @@
-package com.jkjamies.imgur.search.presentation.components
+package com.jkjamies.imgur.search.presentation.shared
 
 import android.content.Context
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.content.res.Configuration.UI_MODE_TYPE_NORMAL
 import android.os.Build.VERSION.SDK_INT
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.PreviewLightDark
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.Preview
 import coil.ImageLoader
 import coil.compose.AsyncImage
 import coil.decode.GifDecoder
@@ -25,27 +21,15 @@ import com.jkjamies.imgur.search.R
 import com.jkjamies.imgur.search.ui.theme.ImgurSearchTheme
 
 @Composable
-fun SearchResultCard(
-    result: ImgurSearchResult,
-    onClick: () -> Unit,
-) {
-    Card(
-        modifier =
-            Modifier
-                .wrapContentSize()
-                .defaultMinSize(minHeight = 48.dp)
-                .clickable(onClick = onClick),
-        shape = RoundedCornerShape(8.dp),
-    ) {
-        AsyncImage(
-            imageLoader = getImageLoader(result.imageType, LocalContext.current),
-            modifier = Modifier.fillMaxWidth(),
-            model = result.link,
-            placeholder = painterResource(R.drawable.ic_launcher_foreground), // TODO: could be better
-            contentDescription = result.title,
-            contentScale = ContentScale.FillWidth,
-        )
-    }
+internal fun ImgurImage(result: ImgurSearchResult) {
+    AsyncImage(
+        imageLoader = getImageLoader(result.imageType, LocalContext.current),
+        modifier = Modifier.fillMaxWidth(),
+        model = result.link,
+        placeholder = painterResource(R.drawable.ic_launcher_foreground), // TODO: could be better
+        contentDescription = result.title,
+        contentScale = ContentScale.FillWidth,
+    )
 }
 
 @Composable
@@ -84,10 +68,16 @@ private fun getImageLoader(
 }
 
 @Composable
-@PreviewLightDark
-private fun SearchResultCardPreview() {
+@Preview(name = "Light", backgroundColor = 0xFFFFFFFF, showBackground = true)
+@Preview(
+    name = "Dark",
+    backgroundColor = 0xFF000000,
+    showBackground = true,
+    uiMode = UI_MODE_NIGHT_YES or UI_MODE_TYPE_NORMAL,
+)
+private fun ImgurImagePreview() {
     ImgurSearchTheme {
-        SearchResultCard(
+        ImgurImage(
             result =
                 ImgurSearchResult(
                     id = "1",
@@ -95,7 +85,6 @@ private fun SearchResultCardPreview() {
                     link = "https://i.imgur.com/1.jpg",
                     imageType = "image/jpeg",
                 ),
-            onClick = { },
         )
     }
 }

@@ -3,7 +3,9 @@ package com.jkjamies.imgur.api
 import android.content.Context
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.koin.KermitKoinLogger
+import com.jkjamies.imgur.api.domain.models.ImgurSearchResult
 import com.jkjamies.imgur.api.domain.models.ImgurSearchResults
+import com.jkjamies.imgur.api.domain.usecase.GetImgurByIdUseCase
 import com.jkjamies.imgur.api.domain.usecase.GetSearchQueryResultsUseCase
 import kotlinx.coroutines.flow.Flow
 import org.koin.android.ext.koin.androidContext
@@ -29,6 +31,9 @@ class ImgurApi(context: Context) {
     /** Use case for getting Imgur search query results */
     private val getSearchQueryResultsUseCase = koinApp.koin.get<GetSearchQueryResultsUseCase>()
 
+    /** Use case for getting Imgur result by image ID */
+    private val getImgurByIdUseCase = koinApp.koin.get<GetImgurByIdUseCase>()
+
     /**
      * Get the Imgur search query results
      *
@@ -36,6 +41,14 @@ class ImgurApi(context: Context) {
      * @return the Imgur search query results as a [Flow] of [ImgurSearchResults]
      */
     suspend fun getSearchResults(searchQuery: String): Flow<ImgurSearchResults?> = getSearchQueryResultsUseCase(searchQuery)
+
+    /**
+     * Get the Imgur image by ID
+     *
+     * @param imageId the ID of the image to get
+     * @return the Imgur image by ID as a [Flow] of [ImgurSearchResult]
+     */
+    suspend fun getImageById(imageId: String): Flow<ImgurSearchResult?> = getImgurByIdUseCase(imageId)
 }
 
 @Module

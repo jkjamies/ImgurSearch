@@ -53,7 +53,7 @@ internal class ImgurRemoteDataSourceImpl(
                             result.images?.map { image ->
                                 ImgurSearchResult(
                                     id = image.id ?: "",
-                                    title = image.title ?: "",
+                                    title = result.title ?: "", // Use the title from results.data
                                     link = image.link ?: "",
                                     imageType = image.type ?: "",
                                 )

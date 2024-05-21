@@ -1,4 +1,4 @@
-package com.jkjamies.imgur.search.presentation
+package com.jkjamies.imgur.search.presentation.search
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -11,12 +11,17 @@ import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 
 @KoinViewModel
-class SearchScreenViewModel(
+internal class SearchScreenViewModel(
     private val imgurApi: ImgurApi,
 ) : ViewModel() {
     var uiState: MutableStateFlow<SearchScreenUiState> = MutableStateFlow(SearchScreenUiState.Idle)
         private set
 
+    /**
+     * Search for images on Imgur
+     *
+     * @param searchQuery the query to search for
+     */
     fun search(searchQuery: String) {
         viewModelScope.launch {
             uiState.updateAndGet { SearchScreenUiState.Loading }

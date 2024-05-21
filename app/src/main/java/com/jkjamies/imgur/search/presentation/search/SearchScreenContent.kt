@@ -1,4 +1,4 @@
-package com.jkjamies.imgur.search.presentation
+package com.jkjamies.imgur.search.presentation.search
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.content.res.Configuration.UI_MODE_TYPE_NORMAL
@@ -29,11 +29,17 @@ import com.jkjamies.imgur.search.presentation.components.SearchScreenError
 import com.jkjamies.imgur.search.presentation.components.SearchScreenIdle
 import com.jkjamies.imgur.search.presentation.components.SearchScreenLoading
 import com.jkjamies.imgur.search.ui.theme.ImgurSearchTheme
+import kotlinx.serialization.Serializable
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.KoinApplication
-import org.koin.core.KoinApplication
 import org.koin.ksp.generated.module
+
+/**
+ * Destination for the search screen.
+ */
+@Serializable
+internal object SearchScreen
 
 @Composable
 internal fun SearchScreenContent(
