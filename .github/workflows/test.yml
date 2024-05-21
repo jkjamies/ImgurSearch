@@ -28,6 +28,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Run unit tests
-        run: ./gradlew test
+      - name: Run unit tests and lint
+        run: ./gradlew check
 

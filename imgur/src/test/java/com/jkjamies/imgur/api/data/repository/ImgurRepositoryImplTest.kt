@@ -155,4 +155,38 @@ class ImgurRepositoryImplTest : StringSpec({
             coVerify { localDataSource.saveSearchResults(searchQuery, mockImgurSearchResults) }
         }
     }
+
+    "should emit ImgurSearchResult for valid imageId" {
+        // Given
+        val imageId = "123"
+        coEvery { localDataSource.getSearchResult(imageId) } returns mockImgurSearchResult
+
+        runTest {
+            // When
+            val resultFlow = repository.getImgurImageById(imageId)
+            val resultList = mutableListOf<ImgurSearchResult?>()
+            resultFlow.collect { resultList.add(it) }
+
+            // Then
+            resultList.size shouldBe 1
+            resultList[0] shouldBe mockImgurSearchResult
+        }
+    }
+
+    "should emit null for invalid imageId" {
+        // Given
+        val imageId = "invalidId"
+        coEvery { localDataSource.getSearchResult(imageId) } returns null
+
+        runTest {
+            // When
+            val resultFlow = repository.getImgurImageById(imageId)
+            val resultList = mutableListOf<ImgurSearchResult?>()
+            resultFlow.collect { resultList.add(it) }
+
+            // Then
+            resultList.size shouldBe 1
+            resultList[0] shouldBe null
+        }
+    }
 })
