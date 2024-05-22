@@ -43,7 +43,6 @@
 - Shared element transitions - click image and animate into full screen
 - Accessibility enhancements
 - Multiple languages
-
 - Some error handling views for details screen
 - Add more Unit tests
 - Add UI tests
