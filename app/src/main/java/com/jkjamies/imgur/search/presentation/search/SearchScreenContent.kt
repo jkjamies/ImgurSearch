@@ -21,6 +21,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.jkjamies.imgur.api.FilterOptions
 import com.jkjamies.imgur.search.AppModule
 import com.jkjamies.imgur.search.contextModule
 import com.jkjamies.imgur.search.presentation.components.SearchAppBar
@@ -28,7 +29,6 @@ import com.jkjamies.imgur.search.presentation.components.SearchResultsGrid
 import com.jkjamies.imgur.search.presentation.components.SearchScreenError
 import com.jkjamies.imgur.search.presentation.components.SearchScreenIdle
 import com.jkjamies.imgur.search.presentation.components.SearchScreenLoading
-import com.jkjamies.imgur.search.presentation.search.components.FilterOptions
 import com.jkjamies.imgur.search.presentation.search.components.FilterOptionsView
 import com.jkjamies.imgur.search.ui.theme.ImgurSearchTheme
 import kotlinx.serialization.Serializable
@@ -61,7 +61,11 @@ internal fun SearchScreenContent(
                 SearchAppBar(
                     onExecuteSearch = {
                         lastKnownSearchExecuted.value = it
-                        viewModel.search(lastKnownSearchExecuted.value)
+                        viewModel.search(
+                            lastKnownSearchExecuted.value,
+                            filterOptions.value.sort,
+                            filterOptions.value.window,
+                        )
                     },
                 ) {
                     filterOptionsDialogVisible.value = !filterOptionsDialogVisible.value

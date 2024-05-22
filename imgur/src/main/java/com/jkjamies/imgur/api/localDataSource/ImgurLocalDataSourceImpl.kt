@@ -43,11 +43,11 @@ internal class ImgurLocalDataSourceImpl(
                 ),
         )
 
-    override suspend fun getSearchResults(searchQuery: String): ImgurSearchResults? {
+    override suspend fun getSearchResults(searchQuery: String): Result<ImgurSearchResults?> {
         // Retrieve the cached data
         val cachedData =
             database.imgurDatabaseQueries.getImgurResultsByQuery(searchQuery).executeAsOneOrNull()
-                ?: return null
+                ?: return Result.failure(Exception("No cached data found for search query: $searchQuery"))
 
         Logger.d("ImgurLocalDataSourceImpl") {
             """
@@ -56,16 +56,23 @@ internal class ImgurLocalDataSourceImpl(
         }
 
         // Convert the cached data to the domain model
-        return ImgurSearchResults(
-            searchQuery = searchQuery,
-            imgurResults = cachedData.imgurSearchResults,
+        return Result.success(
+            ImgurSearchResults(
+                searchQuery = cachedData.searchQuery,
+                sortOption = cachedData.sortOption,
+                windowOption = cachedData.windowOption,
+                imgurResults = cachedData.imgurSearchResults,
+            ),
         )
     }
 
-    override suspend fun getSearchResult(id: String): ImgurSearchResult? {
+    override suspend fun getSearchResult(id: String): Result<ImgurSearchResult> {
         // Retrieve the cached data
         val cachedData = database.imgurDatabaseQueries.getAllImgurData().executeAsOneOrNull()
-        val cachedResult = cachedData?.imgurSearchResults?.find { it.id == id } ?: return null
+        val cachedResult =
+            cachedData?.imgurSearchResults?.find { it.id == id } ?: return Result.failure(
+                Exception("No cached data found for search result with ID: $id"),
+            )
 
         Logger.d("ImgurLocalDataSourceImpl") {
             """
@@ -74,16 +81,20 @@ internal class ImgurLocalDataSourceImpl(
         }
 
         // Convert the cached data to the domain model
-        return ImgurSearchResult(
-            id = cachedResult.id,
-            title = cachedResult.title,
-            link = cachedResult.link,
-            imageType = cachedResult.imageType,
+        return Result.success(
+            ImgurSearchResult(
+                id = cachedResult.id,
+                title = cachedResult.title,
+                link = cachedResult.link,
+                imageType = cachedResult.imageType,
+            ),
         )
     }
 
     override suspend fun saveSearchResults(
         searchQuery: String,
+        sortOption: String?,
+        windowOption: String?,
         imgurSearchResults: ImgurSearchResults,
     ) {
         Logger.d("ImgurLocalDataSourceImpl") {
@@ -96,6 +107,8 @@ internal class ImgurLocalDataSourceImpl(
 
         database.imgurDatabaseQueries.insertOrReplaceImgurData(
             searchQuery = searchQuery,
+            sortOption = sortOption,
+            windowOption = windowOption,
             imgurSearchResults = imgurSearchResults.imgurResults,
         )
     }

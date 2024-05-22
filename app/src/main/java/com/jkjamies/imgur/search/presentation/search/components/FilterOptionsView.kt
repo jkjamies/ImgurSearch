@@ -14,27 +14,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.jkjamies.imgur.api.FilterOptions
+import com.jkjamies.imgur.api.SortOption
+import com.jkjamies.imgur.api.WindowOption
 import com.jkjamies.imgur.search.ui.theme.ImgurSearchTheme
-import kotlinx.serialization.Serializable
-
-/**
- * Filter options for the search results.
- */
-@Serializable
-internal data class FilterOptions(
-    val sort: SortOption = SortOption.TIME,
-    val window: WindowOption? = null,
-)
-
-/**
- * Sort options for the search results.
- */
-internal enum class SortOption { TIME, VIRAL, TOP }
-
-/**
- * Window options for the search results.
- */
-internal enum class WindowOption { DAY, WEEK, MONTH, YEAR, ALL }
 
 @Composable
 internal fun FilterOptionsView(

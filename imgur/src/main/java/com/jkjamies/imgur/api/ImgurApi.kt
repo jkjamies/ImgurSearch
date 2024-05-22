@@ -40,7 +40,11 @@ class ImgurApi(context: Context) {
      * @param searchQuery the search query to get results for
      * @return the Imgur search query results as a [Flow] of [ImgurSearchResults]
      */
-    suspend fun getSearchResults(searchQuery: String): Flow<ImgurSearchResults?> = getSearchQueryResultsUseCase(searchQuery)
+    suspend fun getSearchResults(
+        searchQuery: String,
+        sortOption: SortOption? = null,
+        windowOption: WindowOption? = null,
+    ): Flow<Result<ImgurSearchResults?>> = getSearchQueryResultsUseCase(searchQuery, sortOption, windowOption)
 
     /**
      * Get the Imgur image by ID
@@ -48,7 +52,7 @@ class ImgurApi(context: Context) {
      * @param imageId the ID of the image to get
      * @return the Imgur image by ID as a [Flow] of [ImgurSearchResult]
      */
-    suspend fun getImageById(imageId: String): Flow<ImgurSearchResult?> = getImgurByIdUseCase(imageId)
+    suspend fun getImageById(imageId: String): Flow<Result<ImgurSearchResult>> = getImgurByIdUseCase(imageId)
 }
 
 @Module

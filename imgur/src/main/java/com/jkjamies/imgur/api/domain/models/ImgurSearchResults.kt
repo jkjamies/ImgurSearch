@@ -5,6 +5,8 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ImgurSearchResults(
     val searchQuery: String,
+    val sortOption: String?,
+    val windowOption: String?,
     val imgurResults: List<ImgurSearchResult>,
 )
 

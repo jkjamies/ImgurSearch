@@ -20,15 +20,15 @@ class GetImgurByIdUseCaseTest : StringSpec({
                 imageType = "jpg",
             )
 
-        val expectedResult = flowOf(mockImgurSearchResult)
+        val expectedResults = flowOf(Result.success(mockImgurSearchResult))
 
-        coEvery { mockRepository.getImgurImageById(any()) } returns expectedResult
+        coEvery { mockRepository.getImgurImageById(any()) } returns expectedResults
 
         // When
         val useCase = GetImgurByIdUseCase(mockRepository)
         val result = useCase("123")
 
         // Then
-        result shouldBe expectedResult
+        result shouldBe expectedResults
     }
 })

@@ -24,14 +24,14 @@ internal class DetailsScreenViewModel(
     fun fetchImgurById(imageId: String) {
         viewModelScope.launch {
             imgurApi.getImageById(imageId).collect { imgurResult ->
-                uiState.updateAndGet {
-                    if (imgurResult == null) {
-                        DetailsScreenUiState.Error
-                    } else {
+                imgurResult.onSuccess { imgur ->
+                    uiState.updateAndGet {
                         DetailsScreenUiState.Image(
-                            image = imgurResult,
+                            image = imgur,
                         )
                     }
+                }.onFailure {
+                    uiState.updateAndGet { DetailsScreenUiState.Error }
                 }
             }
         }

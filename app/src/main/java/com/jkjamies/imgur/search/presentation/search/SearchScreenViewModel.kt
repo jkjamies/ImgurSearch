@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jkjamies.imgur.api.ImgurApi
+import com.jkjamies.imgur.api.SortOption
+import com.jkjamies.imgur.api.WindowOption
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.updateAndGet
@@ -22,23 +24,32 @@ internal class SearchScreenViewModel(
      *
      * @param searchQuery the query to search for
      */
-    fun search(searchQuery: String) {
+    fun search(
+        searchQuery: String,
+        sortOption: SortOption?,
+        windowOption: WindowOption?,
+    ) {
         viewModelScope.launch {
             uiState.updateAndGet { SearchScreenUiState.Loading }
             // TODO: sometimes it is too quick, just for looks - remove good option?
             delay(2000)
-            imgurApi.getSearchResults(searchQuery).collect { imgurResponse ->
-                Log.e("TAG", "imgurResponse: $imgurResponse")
-                uiState.updateAndGet {
-                    if (imgurResponse == null || imgurResponse.imgurResults.isEmpty()) {
-                        SearchScreenUiState.Error
-                    } else {
-                        SearchScreenUiState.Results(
-                            results = imgurResponse.imgurResults,
-                        )
+            imgurApi.getSearchResults(searchQuery, sortOption, windowOption)
+                .collect { imgurResponse ->
+                    Log.e("TAG", "imgurResponse: $imgurResponse")
+                    imgurResponse.onSuccess { imgurs ->
+                        uiState.updateAndGet {
+                            if (imgurs?.imgurResults.isNullOrEmpty()) {
+                                uiState.updateAndGet { SearchScreenUiState.Error }
+                            } else {
+                                SearchScreenUiState.Results(
+                                    results = imgurs?.imgurResults ?: emptyList(),
+                                )
+                            }
+                        }
+                    }.onFailure {
+                        uiState.updateAndGet { SearchScreenUiState.Error }
                     }
                 }
-            }
         }
     }
 }
