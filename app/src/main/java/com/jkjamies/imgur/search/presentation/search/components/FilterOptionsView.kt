@@ -12,11 +12,13 @@ import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jkjamies.imgur.api.FilterOptions
 import com.jkjamies.imgur.api.SortOption
 import com.jkjamies.imgur.api.WindowOption
+import com.jkjamies.imgur.search.R
 import com.jkjamies.imgur.search.ui.theme.ImgurSearchTheme
 
 @Composable
@@ -30,7 +32,7 @@ internal fun FilterOptionsView(
                 .fillMaxWidth()
                 .padding(8.dp),
     ) {
-        Text(text = "Sort by")
+        Text(text = stringResource(R.string.sort_by))
         Row(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
@@ -39,21 +41,21 @@ internal fun FilterOptionsView(
                 onClick = {
                     onFilterOptionSelect(filterOptions.copy(sort = SortOption.TIME))
                 },
-                label = { Text("Time") },
+                label = { Text(stringResource(R.string.time)) },
             )
             FilterChip(
                 selected = filterOptions.sort == SortOption.VIRAL,
                 onClick = {
                     onFilterOptionSelect(filterOptions.copy(sort = SortOption.VIRAL))
                 },
-                label = { Text("Viral") },
+                label = { Text(stringResource(R.string.viral)) },
             )
             FilterChip(
                 selected = filterOptions.sort == SortOption.TOP,
                 onClick = {
                     onFilterOptionSelect(filterOptions.copy(sort = SortOption.TOP))
                 },
-                label = { Text("Top") },
+                label = { Text(stringResource(R.string.top)) },
             )
         }
         AnimatedVisibility(filterOptions.sort == SortOption.TOP) {
@@ -61,7 +63,7 @@ internal fun FilterOptionsView(
                 onFilterOptionSelect(filterOptions.copy(window = WindowOption.ALL))
             }
             Column {
-                Text(text = "Window")
+                Text(text = stringResource(R.string.window))
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
@@ -70,35 +72,35 @@ internal fun FilterOptionsView(
                         onClick = {
                             onFilterOptionSelect(filterOptions.copy(window = WindowOption.DAY))
                         },
-                        label = { Text("Day") },
+                        label = { Text(stringResource(R.string.day)) },
                     )
                     FilterChip(
                         selected = filterOptions.window == WindowOption.WEEK,
                         onClick = {
                             onFilterOptionSelect(filterOptions.copy(window = WindowOption.WEEK))
                         },
-                        label = { Text("Week") },
+                        label = { Text(stringResource(R.string.week)) },
                     )
                     FilterChip(
                         selected = filterOptions.window == WindowOption.MONTH,
                         onClick = {
                             onFilterOptionSelect(filterOptions.copy(window = WindowOption.MONTH))
                         },
-                        label = { Text("Month") },
+                        label = { Text(stringResource(R.string.month)) },
                     )
                     FilterChip(
                         selected = filterOptions.window == WindowOption.YEAR,
                         onClick = {
                             onFilterOptionSelect(filterOptions.copy(window = WindowOption.YEAR))
                         },
-                        label = { Text("Year") },
+                        label = { Text(stringResource(R.string.year)) },
                     )
                     FilterChip(
                         selected = filterOptions.window == WindowOption.ALL,
                         onClick = {
                             onFilterOptionSelect(filterOptions.copy(window = WindowOption.ALL))
                         },
-                        label = { Text("All") },
+                        label = { Text(stringResource(R.string.all)) },
                     )
                 }
             }

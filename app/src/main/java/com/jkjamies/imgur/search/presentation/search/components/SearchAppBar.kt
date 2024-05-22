@@ -1,4 +1,4 @@
-package com.jkjamies.imgur.search.presentation.components
+package com.jkjamies.imgur.search.presentation.search.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -23,9 +23,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import com.jkjamies.imgur.search.R
 import com.jkjamies.imgur.search.ui.theme.ImgurSearchTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -47,24 +49,23 @@ internal fun SearchAppBar(
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Filled.Search,
-                        contentDescription = "Filter options",
+                        contentDescription = stringResource(R.string.filter_options),
                     )
                 },
                 trailingIcon = {
                     IconButton(onClick = {
-                        println("Search button clicked")
                         keyboardController?.hide()
                         focusManager.clearFocus()
                         onExecuteSearch(searchQuery.value)
                     }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.Send,
-                            contentDescription = "Filter options",
+                            contentDescription = stringResource(R.string.filter_options),
                         )
                     }
                 },
                 shape = RoundedCornerShape(24.dp),
-                placeholder = { Text("Search for images") },
+                placeholder = { Text(stringResource(R.string.search_for_images)) },
                 colors =
                     TextFieldDefaults.colors(
                         unfocusedIndicatorColor = Color.Transparent,
@@ -75,7 +76,6 @@ internal fun SearchAppBar(
                 keyboardActions =
                     KeyboardActions(
                         onDone = {
-                            println("Done button clicked")
                             keyboardController?.hide()
                             focusManager.clearFocus()
                             onExecuteSearch(searchQuery.value)
@@ -90,7 +90,7 @@ internal fun SearchAppBar(
             ) {
                 Icon(
                     imageVector = Icons.Filled.FilterList,
-                    contentDescription = "Filter Results",
+                    contentDescription = stringResource(R.string.filter_results),
                 )
             }
         },

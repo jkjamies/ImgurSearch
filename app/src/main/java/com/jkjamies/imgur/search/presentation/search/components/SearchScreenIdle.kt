@@ -1,4 +1,4 @@
-package com.jkjamies.imgur.search.presentation.components
+package com.jkjamies.imgur.search.presentation.search.components
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.content.res.Configuration.UI_MODE_TYPE_NORMAL
@@ -12,6 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -29,7 +30,7 @@ internal fun SearchScreenIdle() {
         verticalArrangement = Arrangement.Center,
     ) {
         Text(
-            text = "Search for images",
+            text = stringResource(R.string.search_for_images),
             style = MaterialTheme.typography.headlineLarge,
             color = MaterialTheme.colorScheme.onBackground,
         )

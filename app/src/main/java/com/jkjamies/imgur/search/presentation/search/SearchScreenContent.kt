@@ -7,15 +7,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
@@ -24,12 +21,12 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.jkjamies.imgur.api.FilterOptions
 import com.jkjamies.imgur.search.AppModule
 import com.jkjamies.imgur.search.contextModule
-import com.jkjamies.imgur.search.presentation.components.SearchAppBar
-import com.jkjamies.imgur.search.presentation.components.SearchResultsGrid
-import com.jkjamies.imgur.search.presentation.components.SearchScreenError
-import com.jkjamies.imgur.search.presentation.components.SearchScreenIdle
-import com.jkjamies.imgur.search.presentation.components.SearchScreenLoading
 import com.jkjamies.imgur.search.presentation.search.components.FilterOptionsView
+import com.jkjamies.imgur.search.presentation.search.components.SearchAppBar
+import com.jkjamies.imgur.search.presentation.search.components.SearchResultsGrid
+import com.jkjamies.imgur.search.presentation.search.components.SearchScreenError
+import com.jkjamies.imgur.search.presentation.search.components.SearchScreenIdle
+import com.jkjamies.imgur.search.presentation.search.components.SearchScreenLoading
 import com.jkjamies.imgur.search.ui.theme.ImgurSearchTheme
 import kotlinx.serialization.Serializable
 import org.koin.android.ext.koin.androidContext
@@ -99,18 +96,17 @@ internal fun SearchScreenContent(
                             // Search results grid
                             SearchResultsGrid(
                                 results = (uiState as SearchScreenUiState.Results).results,
-                                filterOptions = filterOptions.value,
                                 onNavigateToDetails = onNavigateToDetails,
                             )
 
                             // TODO: only if more than one page and only if results currently exist
                             // Load more button
-                            Button(
-                                onClick = { /*page update*/ },
-                                modifier = Modifier.align(Alignment.CenterHorizontally),
-                            ) {
-                                Text("Load More")
-                            }
+//                            Button(
+//                                onClick = { /*page update*/ },
+//                                modifier = Modifier.align(Alignment.CenterHorizontally),
+//                            ) {
+//                                Text("Load More")
+//                            }
                         }
                     }
 
