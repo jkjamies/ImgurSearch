@@ -20,7 +20,7 @@
 | Dark Mode (Filter & Results)                | Light Mode (Filter and Results)                 |
 | ![Search_Screen.png](docs/Filter_Dark.png)  | ![Search_Screen.png](docs/Filter_Light.png)     |
 
-#### NEO Details Screen
+#### Details Screen
 
 | Dark Mode                                  | Light Mode                                        |
 |--------------------------------------------|---------------------------------------------------|
@@ -43,3 +43,7 @@
 - Shared element transitions - click image and animate into full screen
 - Accessibility enhancements
 - Multiple languages
+- Some error handling views for details screen
+- Add more Unit tests
+- Add UI tests
+- Create documentation for implementation and architecture
