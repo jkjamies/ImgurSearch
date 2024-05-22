@@ -9,8 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import com.jkjamies.imgur.api.FilterOptions
 import com.jkjamies.imgur.api.domain.models.ImgurSearchResult
-import com.jkjamies.imgur.search.presentation.search.components.FilterOptions
 import com.jkjamies.imgur.search.ui.theme.ImgurSearchTheme
 
 @Composable

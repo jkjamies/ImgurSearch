@@ -4,6 +4,8 @@ import com.jkjamies.imgur.api.domain.models.ImgurSearchResult;
 -- Database schema for ImgurData
 CREATE TABLE IF NOT EXISTS ImgurDataList (
     searchQuery TEXT PRIMARY KEY,
+    sortOption TEXT,
+    windowOption TEXT,
     imgurSearchResults TEXT AS List<ImgurSearchResult> NOT NULL
 );
 
@@ -15,10 +17,14 @@ DELETE FROM ImgurDataList;
 insertOrReplaceImgurData:
 INSERT OR REPLACE INTO ImgurDataList (
     searchQuery,
+    sortOption,
+    windowOption,
     imgurSearchResults
 ) VALUES (
     ?1,
-    ?2
+    ?2,
+    ?3,
+    ?4
 );
 
 -- Select statement

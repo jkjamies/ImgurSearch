@@ -29,19 +29,22 @@ class GetSearchQueryResultsUseCaseTest : StringSpec({
     val mockImgurSearchResults =
         ImgurSearchResults(
             searchQuery = "cats",
+            sortOption = "TOP",
+            windowOption = "ALL",
             imgurResults = listOf(mockImgurSearchResult),
         )
 
     "should return search results flow from repository" {
         // Given
         val searchQuery = "cats"
-        val expectedResults: Flow<ImgurSearchResults?> = flowOf(mockImgurSearchResults)
+        val expectedResults: Flow<Result<ImgurSearchResults>> =
+            flowOf(Result.success(mockImgurSearchResults))
 
         coEvery { imgurRepository.getImgurSearchResults(searchQuery) } returns expectedResults
 
         runTest {
             // When
-            val results = getSearchQueryResultsUseCase.invoke(searchQuery)
+            val results = getSearchQueryResultsUseCase.invoke(searchQuery, null, null)
             // Then
             results shouldBe expectedResults
         }
@@ -50,13 +53,12 @@ class GetSearchQueryResultsUseCaseTest : StringSpec({
     "should handle null search results from repository" {
         // Given
         val searchQuery = "dogs"
-        val expectedResults: Flow<ImgurSearchResults?> = flowOf(null)
-
+        val expectedResults: Flow<Result<ImgurSearchResults>> = flowOf(Result.failure(Exception()))
         coEvery { imgurRepository.getImgurSearchResults(searchQuery) } returns expectedResults
 
         runTest {
             // When
-            val results = getSearchQueryResultsUseCase.invoke(searchQuery)
+            val results = getSearchQueryResultsUseCase.invoke(searchQuery, null, null)
             // Then
             results shouldBe expectedResults
         }

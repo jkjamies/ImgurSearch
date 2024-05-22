@@ -1,5 +1,6 @@
 package com.jkjamies.imgur.api.remoteDataSource
 
+import com.jkjamies.imgur.api.SortOption
 import com.jkjamies.imgur.api.domain.models.ImgurSearchResult
 import com.jkjamies.imgur.api.domain.models.ImgurSearchResults
 import io.kotest.core.spec.style.StringSpec
@@ -47,6 +48,8 @@ class ImgurRemoteDataSourceImplTest : StringSpec({
         val expectedSearchResults =
             ImgurSearchResults(
                 searchQuery = "cats",
+                sortOption = "TOP",
+                windowOption = null,
                 imgurResults =
                     listOf(
                         ImgurSearchResult(
@@ -59,7 +62,7 @@ class ImgurRemoteDataSourceImplTest : StringSpec({
             )
 
         runTest {
-            remoteDataSource.getSearchQueryResults("cats") shouldBe
+            remoteDataSource.getSearchQueryResults("cats", SortOption.TOP, null) shouldBe
                 Result.success(
                     expectedSearchResults,
                 )
@@ -86,7 +89,7 @@ class ImgurRemoteDataSourceImplTest : StringSpec({
         val remoteDataSource = ImgurRemoteDataSourceImpl(httpClientWithError)
 
         runTest {
-            val actualResults = remoteDataSource.getSearchQueryResults("cats")
+            val actualResults = remoteDataSource.getSearchQueryResults("cats", null, null)
             actualResults.isFailure shouldBe true
         }
     }

@@ -3,6 +3,8 @@ package com.jkjamies.imgur.api.remoteDataSource
 import ImgurErrorResponse
 import ImgurResponse
 import com.jkjamies.imgur.api.BuildConfig
+import com.jkjamies.imgur.api.SortOption
+import com.jkjamies.imgur.api.WindowOption
 import com.jkjamies.imgur.api.data.remoteDataSource.ImgurRemoteDataSource
 import com.jkjamies.imgur.api.domain.models.ImgurSearchResult
 import com.jkjamies.imgur.api.domain.models.ImgurSearchResults
@@ -20,18 +22,25 @@ import org.koin.core.annotation.Single
 internal class ImgurRemoteDataSourceImpl(
     private val httpClient: HttpClient = httpClient { },
 ) : ImgurRemoteDataSource {
-    override suspend fun getSearchQueryResults(searchQuery: String): Result<ImgurSearchResults?> {
+    override suspend fun getSearchQueryResults(
+        searchQuery: String,
+        sortOption: SortOption?,
+        windowOption: WindowOption?,
+    ): Result<ImgurSearchResults?> {
         runCatching {
             // Fetch the Imgur Search Response from the Imgur API
             val request =
                 httpClient.get(BuildConfig.imgurBaseUrl) {
                     url {
                         appendPathSegments(BuildConfig.imgurSearchUrl)
-                        if (true) { // if given a sort filter
-                            appendPathSegments("time") // time, viral, top - defaults to time
+                        if (sortOption != null) { // if given a sort filter
+                            appendPathSegments(sortOption.name.lowercase()) // time, viral, top - defaults to time
                         }
-                        if (true) { // if given a time filter
-                            appendPathSegments("all") // day, week, month, year, all - defaults to all
+                        if (sortOption == SortOption.TOP) { // if given a time filter
+                            appendPathSegments(
+                                windowOption?.name?.lowercase()
+                                    ?: WindowOption.ALL.name.lowercase(),
+                            ) // day, week, month, year, all - defaults to all
                         }
                         parameters.append("q", searchQuery)
                     }
@@ -58,6 +67,8 @@ internal class ImgurRemoteDataSourceImpl(
                     Result.success(
                         ImgurSearchResults(
                             searchQuery = searchQuery,
+                            sortOption = sortOption?.name,
+                            windowOption = windowOption?.name,
                             imgurResults = mappedResults,
                         ),
                     )
