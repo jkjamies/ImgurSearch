@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">Imgur Search</string>
+    <string name="sort_by">Sort by</string>
+    <string name="time">Time</string>
+    <string name="viral">Viral</string>
+    <string name="top">Top</string>
+    <string name="window">Window</string>
+    <string name="day">Day</string>
+    <string name="week">Week</string>
+    <string name="month">Month</string>
+    <string name="year">Year</string>
+    <string name="all">All</string>
+    <string name="filter_results">Filter Results</string>
+    <string name="search_for_images">Search for images</string>
+    <string name="filter_options">Filter options</string>
+    <string name="error">Error</string>
+    <string name="cannot_find_any_images">Cannot find any images</string>
+    <string name="searching_images_for_query">Searching images for\n%1$s...</string>
+    <string name="back">Back</string>
 </resources>

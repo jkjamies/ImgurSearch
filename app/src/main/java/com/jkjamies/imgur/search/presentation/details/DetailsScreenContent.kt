@@ -17,7 +17,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.jkjamies.imgur.search.R
 import com.jkjamies.imgur.search.presentation.shared.ImgurImage
 import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
@@ -55,7 +57,7 @@ internal fun DetailsScreenContent(
                     ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back",
+                            contentDescription = stringResource(R.string.back),
                         )
                     }
                 },

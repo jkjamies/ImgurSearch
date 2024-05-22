@@ -1,4 +1,4 @@
-package com.jkjamies.imgur.search.presentation.components
+package com.jkjamies.imgur.search.presentation.search.components
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.content.res.Configuration.UI_MODE_TYPE_NORMAL
@@ -16,8 +16,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.jkjamies.imgur.search.R
 import com.jkjamies.imgur.search.ui.theme.ImgurSearchTheme
 
 @Composable
@@ -29,13 +31,13 @@ internal fun SearchScreenError() {
     ) {
         Icon(
             imageVector = Icons.Default.Error,
-            contentDescription = "Error",
+            contentDescription = stringResource(R.string.error),
             modifier = Modifier.size(48.dp),
             tint = MaterialTheme.colorScheme.onBackground,
         )
         Spacer(modifier = Modifier.height(32.dp))
         Text(
-            text = "Cannot find any images",
+            text = stringResource(R.string.cannot_find_any_images),
             style = MaterialTheme.typography.headlineLarge,
             color = MaterialTheme.colorScheme.onBackground,
         )
